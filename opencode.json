@@ -1,0 +1,68 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "build": {
+      "description": "Manual implementation agent — executes approved plans; strict plan executor with stop authority.",
+      "mode": "primary",
+      "prompt": "{file:./prompts/build.md}",
+      "permission": {
+        "skill": {
+          "*": "allow"
+        },
+        "task": {
+          "*": "deny",
+          "auto-review": "allow",
+          "auto-review-*": "allow"
+        }
+      }
+    },
+    "plan": {
+      "description": "Manual planning agent — scopes, researches, and produces executable plans; hands off to build.",
+      "mode": "primary",
+      "prompt": "{file:./prompts/plan.md}",
+      "permission": {
+        "edit": {
+          "*": "deny"
+        },
+        "bash": {
+          "*": "allow",
+          "rm -rf /*": "deny",
+          "rm -rf ~*": "deny",
+          "git push --force*": "ask",
+          "git reset --hard*": "ask",
+          "git clean *": "ask"
+        },
+        "skill": {
+          "*": "allow"
+        },
+        "task": {
+          "*": "deny",
+          "plan-deep": "allow",
+          "auto-plan-checker": "allow",
+          "auto-research": "allow",
+          "auto-research-*": "allow",
+          "auto-review": "allow",
+          "auto-review-*": "allow",
+          "auto-web-research-free": "allow"
+        }
+      }
+    },
+    "general": {
+      "disable": true
+    },
+    "scout": {
+      "disable": true
+    },
+    "explore": {
+      "mode": "subagent",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny",
+        "external_directory": "deny",
+        "question": "deny",
+        "todowrite": "deny"
+      }
+    }
+  }
+}
