@@ -1,6 +1,6 @@
 # OpenCode Workflow Kit
 
-A curated, generic OpenCode workflow: agent behavior rules, subagent contracts, and domain skills. It is a downstream product of a larger private configuration, intentionally smaller, and not kept in sync automatically.
+A curated, generic OpenCode workflow: agent behavior rules, subagent contracts, and prompts. It is a downstream product of a larger private configuration, intentionally smaller, and not kept in sync automatically.
 
 ## Status
 
