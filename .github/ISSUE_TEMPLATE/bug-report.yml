@@ -1,0 +1,38 @@
+name: Bug report
+description: Report something that does not work as described
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: Describe the failure. Include the exact command or step that triggered it.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: The shortest sequence that reproduces the problem.
+        placeholder: |
+          1. Install the kit into $HOME/.config/opencode
+          2. Run ...
+          3. Observe ...
+    validations:
+      required: false
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OpenCode version, operating system, and provider/model in use.
+      placeholder: "opencode 1.18.18, macOS, <your provider>/<model>"
+    validations:
+      required: false
