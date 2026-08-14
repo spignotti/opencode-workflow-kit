@@ -51,9 +51,22 @@ def main():
     except (OSError, json.JSONDecodeError) as exc:
         fail(f"opencode.json: {exc}")
 
-    for key in ("provider", "model", "mcp", "enabled_providers", "disabled_providers", "whitelist"):
+    for key in ("provider", "model", "small_model", "mcp", "enabled_providers", "disabled_providers", "whitelist"):
         if key in config:
             fail(f"opencode.json: forbidden top-level key {key!r}")
+
+    # Reject provider/model keys at any depth (e.g. agent.<name>.model).
+    def find_forbidden(node, path):
+        if isinstance(node, dict):
+            for key, value in node.items():
+                if key in ("model", "provider", "small_model"):
+                    fail(f"opencode.json: forbidden key {key!r} at {path or '<root>'}")
+                find_forbidden(value, f"{path}/{key}")
+        elif isinstance(node, list):
+            for index, value in enumerate(node):
+                find_forbidden(value, f"{path}[{index}]")
+
+    find_forbidden(config, "")
 
     agents = config.get("agent", {})
     if not isinstance(agents, dict):
@@ -80,9 +93,8 @@ def main():
         if not text.startswith("---\n") or "\n---\n" not in text:
             fail(f"{agent_file.name}: frontmatter must start with --- and close with a second --- line")
         frontmatter = text.split("\n---\n", 1)[0]
-        for line in frontmatter.splitlines():
-            if line.startswith("model: "):
-                fail(f"{agent_file.name}: model: assignment not allowed in public agents")
+        if re.search(r"^\s*model\s*:", frontmatter, re.MULTILINE):
+            fail(f"{agent_file.name}: model: assignment not allowed in public agents")
 
     scan_targets = list((REPO / "prompts").glob("*.md")) + list((REPO / "agents").glob("*.md"))
     scan_targets.append(config_path)

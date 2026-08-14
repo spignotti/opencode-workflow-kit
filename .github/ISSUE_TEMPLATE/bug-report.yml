@@ -22,10 +22,10 @@ body:
     attributes:
       label: Reproduction steps
       description: The shortest sequence that reproduces the problem.
-        placeholder: |
-          1. Install the kit into $HOME/.config/opencode
-          2. Run ...
-          3. Observe ...
+      placeholder: |
+        1. Install the kit into $HOME/.config/opencode
+        2. Run ...
+        3. Observe ...
     validations:
       required: false
   - type: input

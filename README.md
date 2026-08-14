@@ -27,7 +27,11 @@ opencode-workflow-kit/
 │   └── plan-deep.md
 ├── scripts/
 │   └── validate_public_config.py   # config and reference validation
-└── .github/workflows/validate.yml  # CI: config validation + secret scan
+├── .github/
+│   ├── ISSUE_TEMPLATE/             # bug report and feedback forms
+│   └── workflows/validate.yml      # CI: config validation + secret scan
+├── LICENSE                          # MIT
+└── SECURITY.md                      # vulnerability reporting policy
 ```
 
 ## Prerequisites
