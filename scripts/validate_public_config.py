@@ -208,14 +208,14 @@ def check_privacy():
 
     for path in scan_targets:
         text = path.read_text(errors="replace")
-        rel_str = path.relative_to(REPO)
+        rel = str(path.relative_to(REPO))
         for label, pattern in PRIVACY_PATTERNS:
             for lineno, line in enumerate(text.splitlines(), 1):
                 if pattern.search(line):
                     # Allow exact canonical public-source locator URLs on
                     # lines that contain them; any other match fails.
-                    if label == "personal name" and rel_str.name in CANONICAL_SOURCE_URLS:
-                        if CANONICAL_SOURCE_URLS[rel_str.name].search(line):
+                    if label == "personal name" and rel in CANONICAL_SOURCE_URLS:
+                        if CANONICAL_SOURCE_URLS[rel].search(line):
                             continue
                     fail(f"{path.relative_to(REPO)}:{lineno}: {label}")
 
