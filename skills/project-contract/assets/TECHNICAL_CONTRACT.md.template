@@ -1,0 +1,32 @@
+# Technical Contract
+
+`status`: draft | active | opted-out | not-required
+`activation_reason`: manual | <short reason>
+`opt_out_reason`: <required when status=opted-out>
+
+## Authority
+
+This contract is normative for the codebase once `status` is `active`. It records accepted technical decisions and invariants. Conflicts between this contract, the plan, and code are planning decisions: resolve through the plan, never by silently rewriting this file to match new code.
+
+## Decisions
+
+| ID | Decision | Status |
+|---|---|---|
+| DEC-0001 | <accepted decision> | accepted |
+
+## Risk controls
+
+| ID | Risk | Accepted control / decision | Required evidence | Decision ref |
+|---|---|---|---|---|
+| R-01 | <concrete failure> | <control> | <evidence> | DEC-0001 |
+
+## Open items
+
+<!-- No blocking open items may remain while status=active. -->
+
+## Activation and change
+
+- Activation: user approval of this draft; no blocking open items.
+- Change: only via a plan-named, user-approved amendment; code follows in the same approved package.
+
+Do not copy product-scope prose, explain source code, or list dependency versions here.

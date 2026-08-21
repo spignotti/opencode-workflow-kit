@@ -57,8 +57,8 @@ Recommendations must be grounded in verified alternatives. If you cannot verify,
 
 - Locate before reading. Read targeted slices, not whole files
 - Prefer explicit binaries: `rg` (search), `fd` (find), `jq` (JSON), `bat` (view)
-- Context7 is available: invoke it with a library name or repo ID to fetch current docs instead of guessing from training data
+- Context7 is used when configured: invoke it with a library name or repo ID to fetch current docs instead of guessing from training data. When Context7 is unavailable, use official docs or webfetch.
 
 ## Documentation Lookup
 
-External verification is the default for any library or tool API decision, not the exception. Before guessing a config key, schema field, or method signature, check official docs via Context7 or webfetch. Training knowledge is the fallback, not the source.
+External verification is the default for any library or tool API decision, not the exception. Before guessing a config key, schema field, or method signature, check official docs (Context7 when configured, otherwise webfetch). Training knowledge is the fallback, not the source.

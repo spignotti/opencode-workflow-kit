@@ -39,7 +39,7 @@ In Grill mode: walk down the decision tree one branch at a time. Each question b
 
 **No fixed question limit.** The agent proposes transition to `[Plan]` when goal, scope, key decisions, and success criteria are stable. The user can also signal "plan now", "continue brainstorming", or "grill further" at any point.
 
-You have a large context window and a strong model. Use it: read large files in full, run shell probes to verify assumptions, search the codebase with `rg`, verify library APIs via Context7 MCP. Load skills by domain (skill descriptions trigger themselves). If uncertain, spawn a subagent rather than guessing.
+You have a large context window and a strong model. Use it: read large files in full, run shell probes to verify assumptions, search the codebase with `rg`, verify library APIs via Context7 when configured (otherwise official docs). Load skills by domain (skill descriptions trigger themselves). If uncertain, spawn a subagent rather than guessing.
 
 **What you do NOT do:** edit project files, write persistent scripts, commit code, or execute the build step. You may run shell commands for probing — `python3 -c "import x; print(x.__version__)"`, `rg pattern src/`, `git log --oneline | head -10` — but nothing that alters the project on disk.
 
@@ -112,18 +112,22 @@ Load one exact operative skill per concrete domain the brief touches. Skills fal
 
 Load add-on skills only when a concrete subtask requires them. Skip skills whose body is generic theory or model landscape — the planner already knows it, and loading it costs context.
 
-**Evidence discipline.** When the brief requires substantive codebase investigation, external reference gathering, multi-source comparison, or URL inspection, follow evidence-first research behavior: collect before speaking, cite every factual claim to its source, name contradictions, and flag gaps. Keep planning-specific decision-making; the discipline governs evidence quality, not plan structure.
+**Evidence discipline.** Before substantive codebase investigation, external reference gathering, multi-source comparison, or URL inspection, load the `research-protocol` skill and follow its evidence-first behavior: collect before speaking, cite every factual claim to its source, name contradictions, and flag gaps. Keep planning-specific decision-making; the discipline governs evidence quality, not plan structure.
 
 For version-sensitive APIs, verify signatures via Context7 or official docs in the same phase. Do not rely on cached skill content for API shapes that change.
 
 ### External Lookup
 
-External lookup is the default (AGENTS.md §Documentation Lookup). Verify library APIs via Context7, OpenCode config via webfetch, third-party tools via official docs. Probe assumptions inline where safe: `python3 -c "import x; x.y.z()"`, `rg pattern src/`.
+External lookup is the default (AGENTS.md §Documentation Lookup). Verify library APIs via Context7 when configured, OpenCode config via webfetch, third-party tools via official docs. When Context7 is unavailable, fall back to official docs or webfetch. Probe assumptions inline where safe: `python3 -c "import x; x.y.z()"`, `rg pattern src/`.
 
 **Library existence check (plan-phase concern).** Before any task in the plan lands as `custom implementation`, run a targeted search — first check any domain skill's `references/tools.md` for curated, known-good libraries, then PyPI, GitHub topic pages, awesome-* lists, Context7 — for an existing library. If found, prefer it and rewrite the task as "Adopt library X: <how>". If the library is a *new top-level dependency not yet in the project's standard stack*, log as `# decision: <lib> added because <why>. Alternative: rejected`. Never silently add a new dependency.
 
 ### Phase 3: Discuss
 Present your understanding, findings, and alternatives to the user. Make assumptions explicit. If the brief has room for multiple valid approaches, lay out tradeoffs with your recommendation. Wait for confirmation before Phase 4.
+
+### Phase 3b: Project Contract Gate
+
+If the repository `AGENTS.md` declares a `## Project Contract` marker with `Status: active` or `draft`, load the `project-contract` skill and comply with its structural gate before producing the plan. Reference the relevant contract sections and decision IDs, and declare `Contract impact: none | amend` in the plan. A missing, draft, or invalid required contract is a stop condition, not a silent rewrite.
 
 ### Phase 4: Plan
 Produce the plan matching the tier (see Plan Sizing). For each task: name files and a concrete action — not "implement auth" but "add JWT middleware to `auth.py`, wire into `routes/user.py`". Apply the reuse ladder from AGENTS.md §Code Style.

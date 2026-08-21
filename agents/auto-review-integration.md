@@ -7,6 +7,7 @@ permission:
   task: deny
   question: deny
   todowrite: deny
+  skill: allow
   bash:
     "*": allow
     "rm *": deny
@@ -139,7 +140,7 @@ Your lens: will this survive real use?
 
 ## Load the review protocol
 
-Follow a strict review standard: every finding cites file:line evidence, no speculative findings, severity model Critical/Major/Minor, and a return format the caller can act on. Run the always-checks (completion, key files, key connections, code quality) plus the conditionals the review scope triggers.
+Load the `review-protocol` skill and follow its standard: every finding cites file:line evidence, no speculative findings, severity model Critical/Major/Minor, and a return format the caller can act on. Run the always-checks (completion, key files, key connections, code quality) plus the conditionals the review scope triggers. When the diff contains test files, load the `test-quality` skill and apply its behavioral test review.
 
 ## Review scope
 

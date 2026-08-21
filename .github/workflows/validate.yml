@@ -17,6 +17,8 @@ jobs:
           python-version: "3.12"
       - name: Validate public config
         run: python scripts/validate_public_config.py
+      - name: Unit tests
+        run: python -m unittest discover -s tests
       - name: Install Gitleaks
         run: |
           curl -fsSL -o "$RUNNER_TEMP/gitleaks.tar.gz" \

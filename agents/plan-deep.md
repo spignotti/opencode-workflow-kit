@@ -8,6 +8,7 @@ permission:
   task: deny
   question: deny
   todowrite: deny
+  skill: allow
   bash:
     "*": allow
     "rm *": deny
@@ -148,7 +149,7 @@ Your job is to handle planning tasks that exceed the capacity of standard planni
 - Include checkpoints for validation and commit boundaries when they add value.
 - Do not hard-code Python-specific validation commands. Use the repository's actual validation profile and project context.
 - Do not write implementation code.
-- Load one exact operative skill per concrete domain the brief touches. Skills are guardrail, playbook, or tool bundle. Load add-ons only when a concrete subtask requires them.
+- Load one exact operative skill per concrete domain the brief touches. Skills are guardrail, playbook, or tool bundle. Load add-ons only when a concrete subtask requires them. Before substantive repository or external research, load the `research-protocol` skill and follow its evidence-first discipline.
 - For version-sensitive APIs, verify signatures via Context7 or official docs during research.
 
 ## When you are called

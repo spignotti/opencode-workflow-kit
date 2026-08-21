@@ -1,0 +1,50 @@
+# <Project Name>
+
+<Project purpose — one sentence>
+
+## Delivery Profile
+
+`<Delivery Profile>` — determined during setup.
+
+- branch/commit/PR workflow → load `git-workflow` skill
+- profile-specific gates → see below
+
+## Tech Stack
+
+- <detected or chosen stack, e.g. Python + uv, Node + pnpm>
+- <key libraries and tooling>
+
+## Structure
+
+```
+<project layout, e.g. src/<package>/ and tests/ for Python>
+```
+
+## Toolchain & Workflow
+
+- <package manager / validation commands for this stack>
+- Validation and toolchain decisions → load `python-devops-stack` skill (Python projects).
+- Branch / commit / PR workflow → load `git-workflow` skill.
+
+## Conventions
+
+- follow existing patterns before introducing new ones
+- keep it simple — build only what the project needs
+
+## Secrets
+
+When present, `.env.example` declares expected variable names.
+Never commit secret values.
+
+## Known Constraints
+
+<!-- durable constraints agreed during setup are added here -->
+
+## Project Contract
+
+Status: not-required
+Manifest: TECHNICAL_CONTRACT.md
+Activation reason: none
+Opt-out reason: none
+
+<!-- Set to active only on explicit request: "set up a project contract". Never automatic. -->

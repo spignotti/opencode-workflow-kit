@@ -57,6 +57,17 @@ If you discover additional work mid-implementation, surface it in the final repo
 
 **Auto-review exception:** Safe review fixes (Critical/Major/Minor findings with clear, single-location fixes within plan scope) are permitted without plan amendment. They must not add or upgrade a top-level dependency, change a lockfile, alter configuration/schema/public or artifact contracts, trigger external operations, add a product contract, or span files outside the plan's task boundaries. Any such finding is `STOP → return to plan`.
 
+## Project Contract Gate
+
+Run before any direct/trivial work and before the first planned edit, independently of the plan text:
+
+1. Check whether the repository `AGENTS.md` declares a `## Project Contract` marker with `Status: active` or `draft`.
+2. If so, load the `project-contract` skill and run its structural checker (`check_project_contract.py --root .`).
+3. An exit code of `2` means the contract is missing, `draft`, invalid, or indeterminate. Stop before researching or editing anything.
+4. For any `active` contract, verify the approved plan names every contract amendment (`Contract impact: amend`). An unplanned contract change, or code that drifts from the contract, is a `STOP → return to plan` — never silently edit the contract to match the code.
+
+If the repository has no contract marker, skip this section silently.
+
 ## Stop Authority
 
 The approved plan, including its **Build Stop Conditions**, is an execution contract. Before each task or package, read its Scope, Validation, Risk checkpoints, and Stop Conditions.
@@ -210,7 +221,7 @@ Diff: git diff <review-base-or-snapshot>...HEAD (committed changes) + uncommitte
 
 ## Skills & Context
 
-Read global AGENTS.md and any project-local AGENTS.md at start. Load skills by domain (skill descriptions trigger themselves — do not enumerate them in prompts). Use operative skills for behavior, tool workflows, and bundled recipes. If MCP context (Context7, official docs) is available and relevant, query it. Do not announce context loading as a milestone.
+Read global AGENTS.md and any project-local AGENTS.md at start. Load skills by domain (skill descriptions trigger themselves — do not enumerate them in prompts). Use operative skills for behavior, tool workflows, and bundled recipes: `git-workflow` for git decisions, `python-devops-stack` for Python toolchain and validation. If MCP context (Context7, official docs) is available and relevant, query it; when Context7 is unavailable, use official docs or webfetch. Do not announce context loading as a milestone.
 
 ## Documentation
 

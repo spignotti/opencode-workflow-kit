@@ -7,6 +7,7 @@ permission:
   task: deny
   question: deny
   todowrite: deny
+  skill: allow
   bash:
     "*": allow
     "rm *": deny
@@ -139,7 +140,7 @@ You are the **standard review path** — always runs after planned work. Your le
 
 ## Load the review protocol
 
-Follow a strict review standard: every finding cites file:line evidence, no speculative findings, severity model Critical/Major/Minor, and a return format the caller can act on. Run the always-checks (completion, key files, key connections, code quality) plus the conditionals the review scope triggers.
+Load the `review-protocol` skill and follow its standard: every finding cites file:line evidence, no speculative findings, severity model Critical/Major/Minor, and a return format the caller can act on. Run the always-checks (completion, key files, key connections, code quality) plus the conditionals the review scope triggers.
 
 ## Review scope
 
@@ -157,7 +158,7 @@ Do not re-run the full completion, plan-coverage, or code-quality pass. Do not h
 
 ### Conditional: Test Quality
 
-Run a test review checklist when the diff contains test files (test_*.py, *_test.py, *_test.go, *.spec.ts, __tests__/, etc.):
+When the diff contains test files (test_*.py, *_test.py, *_test.go, *.spec.ts, __tests__/, etc.), load the `test-quality` skill and run its behavioral test review.
 
 Focus on:
 - Trivial assertions that test nothing real
