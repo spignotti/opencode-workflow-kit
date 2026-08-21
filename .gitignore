@@ -17,3 +17,6 @@ node_modules/
 
 # Promptfoo eval cache and output
 .promptfoo/
+
+# Installer default target
+opencode-workflow-kit/
