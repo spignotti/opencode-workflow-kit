@@ -63,7 +63,7 @@ OpenCode with your own provider configured. This repository contains no provider
 Download and inspect the installer, then run it:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/spignotti/opencode-workflow-kit/v1.0.0/install.sh > install.sh
+curl -fsSL https://raw.githubusercontent.com/spignotti/opencode-workflow-kit/v1.0.1/install.sh > install.sh
 less install.sh   # review before executing
 bash install.sh
 ```

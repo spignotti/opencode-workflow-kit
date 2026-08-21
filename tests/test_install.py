@@ -111,7 +111,7 @@ class InstallerTest(unittest.TestCase):
         target = self._tmpdir / "opencode-workflow-kit"
         target.mkdir()
         (target / "existing.txt").write_text("keep")
-        r = self._run()
+        r = self._run(args=[str(target)])
         self.assertNotEqual(r.returncode, 0)
         self.assertIn("already exists", r.stderr)
         self.assertTrue((target / "existing.txt").exists())

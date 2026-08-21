@@ -53,10 +53,10 @@ VALIDATOR_PATH = Path(__file__).resolve()
 # personal-name occurrence remains fail-closed.
 CANONICAL_SOURCE_URLS = {
     "README.md": re.compile(
-        r"https://raw\.githubusercontent\.com/spignotti/opencode-workflow-kit/v1\.0\.0/install\.sh"
+        r"https://raw\.githubusercontent\.com/spignotti/opencode-workflow-kit/v1\.0\.1/install\.sh"
     ),
     "install.sh": re.compile(
-        r"https://codeload\.github\.com/spignotti/opencode-workflow-kit/tar\.gz/refs/tags/v1\.0\.0"
+        r"https://codeload\.github\.com/spignotti/opencode-workflow-kit/tar\.gz/refs/tags/v1\.0\.1"
     ),
 }
 

@@ -5,12 +5,12 @@ set -euo pipefail
 # Default target: ./opencode-workflow-kit/ (created, never overwritten).
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/spignotti/opencode-workflow-kit/v1.0.0/install.sh > install.sh
+#   curl -fsSL https://raw.githubusercontent.com/spignotti/opencode-workflow-kit/v1.0.1/install.sh > install.sh
 #   bash install.sh [TARGET]
 #
 # Requirements: curl, tar
 
-TAG="v1.0.0"
+TAG="v1.0.1"
 REPO="spignotti/opencode-workflow-kit"
 TARGET="${1:-$PWD/opencode-workflow-kit}"
 
