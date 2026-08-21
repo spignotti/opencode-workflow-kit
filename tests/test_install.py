@@ -11,7 +11,6 @@ import stat
 import subprocess
 import tarfile
 import tempfile
-import textwrap
 import unittest
 from pathlib import Path
 
