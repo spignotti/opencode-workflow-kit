@@ -48,6 +48,18 @@ SKILL_REF_RE = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)*)`\s+skill")
 PRIVACY_SCAN_EXCLUDE = {"LICENSE"}
 VALIDATOR_PATH = Path(__file__).resolve()
 
+# Exact public-source locators containing the GitHub owner name; only these
+# specific URLs in the files listed beside them are permitted.  Any other
+# personal-name occurrence remains fail-closed.
+CANONICAL_SOURCE_URLS = {
+    "README.md": re.compile(
+        r"https://raw\.githubusercontent\.com/spignotti/opencode-workflow-kit/v1\.0\.0/install\.sh"
+    ),
+    "install.sh": re.compile(
+        r"https://codeload\.github\.com/spignotti/opencode-workflow-kit/tar\.gz/refs/tags/v1\.0\.0"
+    ),
+}
+
 SKIP_DIRS = {".git", "__pycache__", ".nox", ".venv", "node_modules"}
 
 
@@ -196,11 +208,16 @@ def check_privacy():
 
     for path in scan_targets:
         text = path.read_text(errors="replace")
+        rel_str = path.relative_to(REPO)
         for label, pattern in PRIVACY_PATTERNS:
-            match = pattern.search(text)
-            if match:
-                lineno = text.count("\n", 0, match.start()) + 1
-                fail(f"{path.relative_to(REPO)}:{lineno}: {label}")
+            for lineno, line in enumerate(text.splitlines(), 1):
+                if pattern.search(line):
+                    # Allow exact canonical public-source locator URLs on
+                    # lines that contain them; any other match fails.
+                    if label == "personal name" and rel_str.name in CANONICAL_SOURCE_URLS:
+                        if CANONICAL_SOURCE_URLS[rel_str.name].search(line):
+                            continue
+                    fail(f"{path.relative_to(REPO)}:{lineno}: {label}")
 
 
 def main():
