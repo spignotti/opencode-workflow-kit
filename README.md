@@ -38,7 +38,7 @@ opencode-workflow-kit/
 │   ├── test-quality/       # behavioral test review
 │   ├── git-workflow/       # commit/branch/PR/release workflows (with bootstrap/release refs)
 │   ├── python-devops-stack/# uv/ruff/pyright/pytest/nox toolchain reference
-│   ├── setup/              # provider-neutral setup skill + project AGENTS.md template
+│   ├── setup/              # provider-neutral setup skill with embedded project file recipes
 │   ├── project-contract/   # compact opt-in technical contract + structural checker
 │   ├── data-work/          # data methodology contract + tool catalogs
 │   ├── geospatial/         # spatial guardrails + specialized references
@@ -48,7 +48,8 @@ opencode-workflow-kit/
 ├── tests/                  # stdlib unit tests for validator and contract checker
 ├── .github/                # issue templates + validation CI
 ├── LICENSE                 # MIT
-└── SECURITY.md             # vulnerability reporting policy
+├── SECURITY.md             # vulnerability reporting policy
+└── install.sh              # safe release installer
 ```
 
 ## Prerequisites
@@ -57,9 +58,29 @@ OpenCode with your own provider configured. This repository contains no provider
 
 ## Installation
 
-There is no installer. Copy the files into your OpenCode config directories and adapt them to your setup.
+### Quick install
 
-### Global install (all projects)
+Download and inspect the installer, then run it:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/spignotti/opencode-workflow-kit/v1.0.0/install.sh > install.sh
+less install.sh   # review before executing
+bash install.sh
+```
+
+The default target is `./opencode-workflow-kit/`. To install elsewhere:
+
+```bash
+bash install.sh /path/to/target
+```
+
+Requirements: `curl` and `tar`. The installer never overwrites an existing directory.
+
+### Manual install
+
+Copy the files into your OpenCode config directories and adapt them to your setup.
+
+#### Global install (all projects)
 
 1. Find your OpenCode global config directory (see opencode.ai/docs/config for the platform-specific location, e.g. `$HOME/.config/opencode/` on macOS and Linux). Set it in the commands below:
 
@@ -79,7 +100,7 @@ cp -Rn agents commands skills prompts "$OPENCODE_CONFIG_DIR/"
    - Open your existing `$OPENCODE_CONFIG_DIR/opencode.json`, add any kit sections you want (agents, permissions), and keep your own keys. `{file:./prompts/...}` references only resolve if the prompts live in the same directory as the config, so either copy `prompts/` next to it or inline the prompt text.
    - Open your existing `$OPENCODE_CONFIG_DIR/AGENTS.md`, add the kit's rules that are missing, and keep your own sections.
 
-### Project-local install (single project)
+#### Project-local install (single project)
 
 ```bash
 export PROJECT="/path/to/your/project"     # adjust to your project
@@ -130,7 +151,7 @@ This repository is an independent snapshot. It is updated deliberately, not cont
 
 - Content is curated from a private source configuration; there is no automated sync between the two.
 - Additions follow the same review standards as any other change: validation, unit tests, and review before merge.
-- Contributions and issues are welcome; external pull requests are not actively maintained. MIT licensed — fork and adapt freely.
+- MIT licensed — fork and adapt freely.
 
 ## License
 
