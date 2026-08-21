@@ -44,13 +44,66 @@ Bootstrap or migrate a project directory.
 
 Present the exact set of files to create or merge and wait for explicit confirmation before any mutation. On an overwrite conflict with an existing file, stop and ask — never overwrite silently.
 
-#### Write project-local AGENTS.md
+#### Compose project-local AGENTS.md
 
-Merge the generic template (`assets/project-agents.md.template`) into `AGENTS.md`:
+Compose from the target-file blocks below. For an existing project, merge the structural sections into any existing `AGENTS.md` — keep existing project-specific content, add the missing structural sections. For new projects, write the full file.
 
-- Keep any existing project-specific content the user wants to preserve.
-- Add the missing structural sections: purpose, delivery profile, stack, conventions, validation, secrets, and the Project Contract marker at `Status: not-required`.
-- Never add planning-service references, session-state files, provider/model IDs, or personal paths.
+**Never** add planning-service references, session-state files, provider/model IDs, or personal paths.
+
+##### Target file: `AGENTS.md`
+
+```markdown
+# <Project Name>
+
+<Project purpose — one sentence>
+
+## Delivery Profile
+
+`<Delivery Profile>` — determined during setup.
+
+- branch/commit/PR workflow → load `git-workflow` skill
+- profile-specific gates → see below
+
+## Tech Stack
+
+- <detected or chosen stack, e.g. Python + uv, Node + pnpm>
+- <key libraries and tooling>
+
+## Structure
+
+```
+<project layout, e.g. src/<package>/ and tests/ for Python>
+```
+
+## Toolchain & Workflow
+
+- <package manager / validation commands for this stack>
+- Validation and toolchain decisions → load `python-devops-stack` skill (Python projects).
+- Branch / commit / PR workflow → load `git-workflow` skill.
+
+## Conventions
+
+- follow existing patterns before introducing new ones
+- keep it simple — build only what the project needs
+
+## Secrets
+
+When present, `.env.example` declares expected variable names.
+Never commit secret values.
+
+## Known Constraints
+
+<!-- durable constraints agreed during setup are added here -->
+
+## Project Contract
+
+Status: not-required
+Manifest: TECHNICAL_CONTRACT.md
+Activation reason: none
+Opt-out reason: none
+
+<!-- Set to active only on explicit request: "set up a project contract". Never automatic. -->
+```
 
 #### Normalized Python route
 
@@ -71,7 +124,32 @@ Profile gates:
 | `production` | mandatory `pyright` + `nox` validation entrypoint |
 | `published` | `production` gates + release ceremony via `git-workflow` (`references/release.md`) |
 
-Write `assets/python-gitignore` as `.gitignore` when absent.
+##### Target file: `.gitignore` (Python projects)
+
+```gitignore
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.nox/
+.pytest_cache/
+.ruff_cache/
+.pyright/
+*.egg-info/
+build/
+dist/
+htmlcov/
+.coverage
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+```
 
 For non-Python projects, do not fabricate a stack. Recommend only what the detected files support (e.g. `package.json` → Node/pnpm) and defer details to the user's own tooling.
 
